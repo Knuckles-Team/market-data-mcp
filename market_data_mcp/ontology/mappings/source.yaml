@@ -1,0 +1,73 @@
+# market-data-mcp ontology mapping (EH-412 / EH-422) — PROVISIONAL
+#
+# EG's finance-v1 ontology (Instrument, Listing, Venue, BarSeries, IndicatorSpec,
+# SignalState, TrendFlip, MacroEvent — proposed in
+# plans/refactor/proposals/FINANCE-INTEGRATION-20260924.md section 4) is being
+# built in parallel on EG branch feat/finance-core. As of this package's build
+# (2026-09-24), that branch has published NOTHING for this lane to read against:
+#   - /var/tmp/l9/finish/finance-core/ is empty (no WRAPUP, no class list, no
+#     STATE.md — the lane has not landed a checkpoint yet).
+#   - The EG worktree /var/tmp/repository-worktrees/epistemic-graph/eg-finance
+#     is stale at the train-3 tip; it carries the PRE-EXISTING FinanceEwma/
+#     FinanceMomentum/etc. stateless kernels, not the new finance-v1 TBox.
+#
+# Per the lane brief ("use their class and property names once they exist"),
+# this file maps each stream to the design doc's OWN proposed class names —
+# the best available authority — and is flagged provisional throughout. When
+# finance-core publishes its actual class/property names, this file (and
+# connectors/adapters.py's build_schema_mappings(), which is keyed the same
+# way) needs a rename pass, not a redesign: the stream-to-concept assignments
+# below should not change, only the exact class/property spelling.
+#
+# This package does NOT redeclare finance-v1 classes itself (see
+# ontology/market_data.ttl for the one class this connector DOES own: its own
+# admin-lifecycle MarketDataSyncRun bookkeeping record).
+
+provisional: true
+authority_pending: eg feat/finance-core (not yet published as of 2026-09-24)
+
+streams:
+  crypto_listings_cmc:
+    source: CoinMarketCap /v1/cryptocurrency/listings/latest
+    target_class: Instrument  # provisional — design doc section 4/7
+    identity_keys: [cmc_id, symbol]
+    note: >
+      Discovery/caps only, not a tradable venue quote — CoinMarketCap's own
+      general OHLCV endpoint documents hourly/daily coverage, not
+      minute-level exchange candles (recommendations.md). Pair with an
+      emerald-exchange Listing (once EH-413's OHLCV bar-series contract
+      lands) for tradable bars.
+
+  crypto_quotes_cmc:
+    source: CoinMarketCap /v1/cryptocurrency/quotes/latest
+    target_class: Instrument  # provisional, same Instrument identity as above
+
+  crypto_global_metrics_cmc:
+    source: CoinMarketCap /v1/global-metrics/quotes/latest
+    target_class: MacroEvent  # provisional — a point-in-time market-wide snapshot,
+                              # closer to a macro/liquidity reading than a per-Instrument fact
+
+  macro_series_fred:
+    source: FRED /series/observations (any series_id, including the named
+      FRED_MACRO_SERIES aliases in config.py)
+    target_class: EconomicIndicator  # provisional — matches EG's EXISTING
+      # energy_geopolitics-v1.ttl:45 EconomicIndicator class (not a new
+      # finance-v1 class); this stream may turn out to belong there rather
+      # than under finance-v1 proper — flagged for finance-core to confirm.
+    identity_keys: [observation_id]
+    vintages: >
+      realtime_start/realtime_end on the same observations call IS the ALFRED
+      point-in-time query (no separate host/API) — see
+      fred_series_observations_asof. series_vintagedates lists every revision
+      date.
+
+  fomc_calendar:
+    source: curated dataset (connectors/fomc_meetings.json), Federal Reserve
+      press releases as source_url per record
+    target_class: MacroEvent  # provisional — design doc section 4/7 names
+      # MacroEvent explicitly for "FOMC hike/cut/hold"
+    identity_keys: [id]  # = decision_date, unique per meeting
+    properties:
+      outcome: hike | cut | hold  # provisional property name
+      bps_change: signed integer
+      target_range_low_pct / target_range_high_pct: resulting Fed funds target range
