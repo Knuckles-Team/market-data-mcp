@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=80.9.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "market-data-mcp"
+version = "0.1.0"
+description = "Crypto discovery/caps (CoinMarketCap), Fed macro series with point-in-time vintages (FRED/ALFRED), and the FOMC decision calendar as an MCP server and agent-connector-sdk source adapters"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Environment :: Console",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.12, <3.15"
+dependencies = [
+    "agent-connector-sdk>=0.1.0,<1.0.0",
+    "httpx>=0.28.1",
+]
+
+[[project.authors]]
+name = "Project Maintainers"
+email = "maintainers@users.noreply.github.com"
+
+[project.license]
+text = "MIT"
+
+[project.optional-dependencies]
+test = ["pytest-xdist>=3.8.0", "pytest>=9.1.1", "pytest-asyncio>=1.4.0", "pytest-cov>=7.1.0"]
+
+[project.scripts]
+market-data-mcp = "market_data_mcp.mcp_server:mcp_server"
+
+[project.entry-points."agent_utilities.skill_providers"]
+market-data-mcp = "market_data_mcp.skills"
+
+[project.entry-points."agent_utilities.ontology_providers"]
+market-data-mcp = "market_data_mcp.ontology"
+
+[project.entry-points."agent_utilities.prompt_providers"]
+market-data-mcp = "market_data_mcp.prompts"
+
+[project.entry-points."agent_utilities.source_connector_providers"]
+market-data-mcp = "market_data_mcp.connectors"
+
+[tool.uv.workspace]
+members = ["."]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[dependency-groups]
+dev = ["pytest-timeout>=2.4.0", "mypy>=1.20.2", "ruff>=0.16.0"]
+
+[tool.setuptools.package-data]
+market_data_mcp = ["mcp_config.json", "prompts/**", "skills/**", "ontology/**", "connectors/**"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E402", "E501", "B008"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.uv.sources]
+agent-connector-sdk = { path = ".uv-workspace-siblings/agent-connector-sdk", editable = true }
+
+[tool.pipelines_hooks]
+packages = ["market_data_mcp"]
+
+[tool.pipelines_hooks.stdout_writes]
+served_paths = ["market_data_mcp"]
