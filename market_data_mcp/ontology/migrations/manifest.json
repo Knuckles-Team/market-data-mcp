@@ -1,0 +1,6 @@
+{
+  "connector": "market-data-mcp",
+  "current_ontology_source": "market-data-mcp",
+  "migrations": [],
+  "schema_version": "1"
+}
