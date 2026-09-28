@@ -1,5 +1,10 @@
 # market-data-mcp
 
+*Version: 0.1.0*
+
+> **Documentation** — Installation, deployment, and tool usage are maintained in the
+> [official documentation](https://knuckles-team.github.io/market-data-mcp/).
+
 Crypto discovery/rankings/market caps (CoinMarketCap), Fed macro and liquidity
 series with point-in-time vintages (FRED/ALFRED), and the FOMC decision
 calendar (hike/cut/hold, sourced) — as an MCP tool surface and, through

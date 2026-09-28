@@ -182,6 +182,19 @@ above instead borrow `agent-connector-sdk`'s own canonical `.venv`
   deliberate gap, not an oversight.
 - CoinMarketCap's historical OHLCV endpoint is not wrapped — CMC is scoped to
   discovery/caps only per the design doc; venue OHLCV stays with emerald-exchange.
+- `connector_manifest.yml` cannot be generated yet: `generate_connector_manifests.py`
+  fail-closes with `FleetRegistryError: provider is not registered in the MCP fleet
+  registry` — `market-data-mcp` (like `world-reference-mcp`) is not one of the 72
+  entries in `mcp-fleet.registry.yml`. This is the same deferred fleet-registration
+  pass named above, not a bug in the generator; do not hand-write the manifest to
+  route around it.
+- `auth.py` and `agent_server.py` are deliberately not added, matching the fleet
+  template's exception path this package already documented above ("Why
+  agent-connector-sdk"): there is no single backend session to authenticate
+  against (`credentials.py` already resolves both keyed sources), and an
+  `agent_server.py` would require an `agent_utilities` import this package's
+  architecture explicitly rules out. `world-reference-mcp` — the other package on
+  this architecture — reached the identical conclusion.
 
 ## Quality bar
 Run `uvx ruff@0.16.0 check/format`, mypy, pytest and
