@@ -113,9 +113,9 @@ curl -s http://localhost:8000/health        # {"status":"OK"}
 | `MCP_TOOL_MODE` | `condensed` | `condensed` / `verbose` / `both` tool registration |
 | `TRANSPORT` / `HOST` / `PORT` | `stdio` / `127.0.0.1` / `8000` | Transport selection for HTTP modes |
 
-`fomc_calendar_list` needs neither credential and performs no network I/O.
+`fomc_calendar_list` needs neither credential and performs no network `I/O`.
 Copy [`.env.example`](https://github.com/Knuckles-Team/market-data-mcp/blob/main/.env.example)
-to `.env` and populate only what you use.
+to `.env` and populate only what the operator use.
 
 ## Docker Compose
 
@@ -169,7 +169,7 @@ this as a tool.
 
 ## Register with an MCP client
 
-Add to your client's `mcp_config.json`:
+Add to the operator's client's `mcp_config.json`:
 
 ```json
 {

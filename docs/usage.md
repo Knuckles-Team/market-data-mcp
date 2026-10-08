@@ -52,7 +52,7 @@ Wiring these adapters to a live sink/schedule is a deployment-layer concern
 ## As a Python API
 
 The vendor clients are plain async functions taking an `httpx.AsyncClient` and
-explicit credentials — never constructing their own client or reading the
+explicit credentials — never building their own client or reading the
 environment directly:
 
 ```python

@@ -40,7 +40,7 @@ fleet packages it is built directly on `agent-connector-sdk` (not
 
 <div class="grid cards" markdown>
 
-- :material-rocket-launch: **[Installation](installation.md)** — pip, source, and the prebuilt Docker image.
+- :material-rocket-start: **[Installation](installation.md)** — pip, source, and the prebuilt Docker image.
 - :material-server-network: **[Deployment](deployment.md)** — run the MCP server, Docker Compose, Caddy + Technitium.
 - :material-console: **[Usage](usage.md)** — the eight MCP tools and the declarative source adapters.
 - :material-sitemap: **[Architecture](overview.md)** — the agent-connector-sdk pattern and MCP configuration.

@@ -49,7 +49,7 @@ source presets" rather than one bespoke package per API:
   adding a `FRED_MACRO_SERIES` alias in `config.py` plus a preset entry — never a new
   API client or MCP tool.
 - **No direct EG dependency.** This package depends on `agent-connector-sdk` only. It
-  never constructs its own EG client and never writes a `kg_ingest.py`-style
+  never builds its own EG client and never writes a `kg_ingest.py`-style
   direct-to-graph tool. Delivery to a live graph is entirely the SDK's
   `agent_connector_sdk.runner`/`sinks` job, wired at deployment time from
   `connectors.adapters.build_source_adapters()`.
@@ -60,7 +60,7 @@ EG's `finance-v1` ontology is being built in parallel on branch `feat/finance-co
 (`plans/refactor/proposals/FINANCE-INTEGRATION-20260924.md` section 4 proposes
 `Instrument`, `Listing`, `Venue`, `BarSeries`, `IndicatorSpec`, `SignalState`,
 `TrendFlip`, `MacroEvent`). As of this package's build (2026-09-24), that branch has
-published nothing this lane could read against — `/var/tmp/l9/finish/finance-core/`
+published nothing this lane can read against — `/var/tmp/l9/finish/finance-core/`
 is empty and the EG worktree `epistemic-graph/eg-finance` is stale at the train-3
 tip (it carries the pre-existing `FinanceEwma`/`FinanceMomentum` stateless kernels,
 not a new TBox). This package therefore maps its streams onto the design doc's own
@@ -84,19 +84,19 @@ The Federal Reserve does not publish its meeting calendar or decisions as a JSON
 API — only as HTML (`https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm`)
 and one press-release page per meeting
 (`https://www.federalreserve.gov/newsevents/pressreleases/monetary<YYYYMMDD>a.htm`).
-`connectors/fomc_meetings.json` is therefore a **curated, hand-verified dataset**,
+`connectors/fomc_meetings.json` is therefore a **curated, hand-checked dataset**,
 not a live scrape.
 
 - **Coverage:** every regularly scheduled FOMC meeting from 2023-01 (the first meeting
   after the design doc's `plans/finance/recommended_plan.md` reference period) through
   2026-03, 18 records.
-- **How it was verified:** cross-checked via web search against federalreserve.gov
+- **How it was checked:** cross-checked via web search against federalreserve.gov
   press releases, FOMC minutes, and independent recaps (CNBC, Chase/J.P. Morgan) on
   2026-09-24 — dates, hike/cut/hold direction, basis-point size and resulting target
   range for every record were checked against at least one primary or near-primary
   source before being written. This is NOT a substitute for reading the Fed's own
   page; it is a best-effort curation pass, and every record carries the Fed's own
-  `source_url` so a caller can verify independently.
+  `source_url` so a caller can check independently.
 - **Known limitation of the `source_url` convention:** the URL is constructed from
   the standard `monetary<YYYYMMDD>a.htm` pattern using each meeting's second
   (decision) day — one record (2026-01-28) was independently observed on
@@ -192,7 +192,7 @@ above instead borrow `agent-connector-sdk`'s own canonical `.venv`
   template's exception path this package already documented above ("Why
   agent-connector-sdk"): there is no single backend session to authenticate
   against (`credentials.py` already resolves both keyed sources), and an
-  `agent_server.py` would require an `agent_utilities` import this package's
+  `agent_server.py` will require an `agent_utilities` import this package's
   architecture explicitly rules out. `world-reference-mcp` — the other package on
   this architecture — reached the identical conclusion.
 

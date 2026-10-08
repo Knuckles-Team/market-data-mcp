@@ -39,7 +39,7 @@ default.
 
 Certificate verification is required for every outbound HTTP call — both
 vendor clients go through `agent_connector_sdk.http.client`'s governed
-transport, which verifies TLS by default. Do not disable verification to work
+transport, which checks TLS by default. Do not disable verification to work
 around an incomplete server chain.
 
 ## Privacy and data governance
@@ -63,7 +63,7 @@ a tenant scope.
    the installed package's live `tools/list` schema.
 2. Confirm `MARKET_DATA_CMC_API_KEY` / `MARKET_DATA_FRED_API_KEY` are present
    without printing their values.
-3. Verify the complete TLS chain with certificate verification enabled.
+3. Check the complete TLS chain with certificate verification enabled.
 4. Exercise the `/health` endpoint (HTTP transports) and one keyless read
    (`fomc_calendar_list`) plus one keyed read per vendor.
 5. Record only sanitized pass/fail evidence and version identifiers.
