@@ -850,7 +850,7 @@ Wiring these adapters to a live sink/schedule is a deployment-layer concern
 (<code>agent_connector_sdk.runner</code>), not something this package does itself.</p>
 <h2 id="as-a-python-api">As a Python API<a class="headerlink" href="#as-a-python-api" title="Permanent link">&para;</a></h2>
 <p>The vendor clients are plain async functions taking an <code>httpx.AsyncClient</code> and
-explicit credentials — never constructing their own client or reading the
+explicit credentials — never building their own client or reading the
 environment directly:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">market_data_mcp.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">coinmarketcap</span>

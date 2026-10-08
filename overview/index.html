@@ -864,7 +864,7 @@ preset, not code"):</p>
   <code>connectors/mcp_source_presets.json</code>, extracted by the SDK's generic
   <code>agent_connector_sdk.adapters.mcp_tool.McpToolSourceAdapter</code>.</li>
 <li><strong>No direct epistemic-graph dependency, and no <code>agent-utilities</code>.</strong> This
-  package never constructs its own knowledge-graph client and ships no
+  package never builds its own knowledge-graph client and ships no
   <code>kg_ingest.py</code>-style direct-to-graph tool. Delivery to a live graph is
   entirely <code>agent_connector_sdk.runner</code>/<code>sinks</code>' job, wired at deployment time
   from <code>connectors.adapters.build_source_adapters()</code>. There is consequently no

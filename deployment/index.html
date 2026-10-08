@@ -1098,9 +1098,9 @@ A network server with a <code>/health</code> endpoint and <code>/mcp</code> rout
 </tr>
 </tbody>
 </table>
-<p><code>fomc_calendar_list</code> needs neither credential and performs no network I/O.
+<p><code>fomc_calendar_list</code> needs neither credential and performs no network <code>I/O</code>.
 Copy <a href="https://github.com/Knuckles-Team/market-data-mcp/blob/main/.env.example"><code>.env.example</code></a>
-to <code>.env</code> and populate only what you use.</p>
+to <code>.env</code> and populate only what the operator use.</p>
 <h2 id="docker-compose">Docker Compose<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h2>
 <p>The repo ships <a href="https://github.com/Knuckles-Team/market-data-mcp/blob/main/docker/mcp.compose.yml"><code>docker/mcp.compose.yml</code></a>.
 It reads a sibling <code>.env</code> and publishes the HTTP server on <code>:8000</code>:</p>
@@ -1136,7 +1136,7 @@ It reads a sibling <code>.env</code> and publishes the HTTP server on <code>:800
 <a href="https://knuckles-team.github.io/technitium-dns-mcp/"><code>technitium-dns-mcp</code></a> automates
 this as a tool.</p>
 <h2 id="register-with-an-mcp-client">Register with an MCP client<a class="headerlink" href="#register-with-an-mcp-client" title="Permanent link">&para;</a></h2>
-<p>Add to your client's <code>mcp_config.json</code>:</p>
+<p>Add to the operator's client's <code>mcp_config.json</code>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">"market-data-mcp"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>

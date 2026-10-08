@@ -843,7 +843,7 @@ default.</p>
 <h2 id="tls-trust">TLS trust<a class="headerlink" href="#tls-trust" title="Permanent link">&para;</a></h2>
 <p>Certificate verification is required for every outbound HTTP call — both
 vendor clients go through <code>agent_connector_sdk.http.client</code>'s governed
-transport, which verifies TLS by default. Do not disable verification to work
+transport, which checks TLS by default. Do not disable verification to work
 around an incomplete server chain.</p>
 <h2 id="privacy-and-data-governance">Privacy and data governance<a class="headerlink" href="#privacy-and-data-governance" title="Permanent link">&para;</a></h2>
 <p>The default observability posture is metadata-only. Do not persist API
@@ -863,7 +863,7 @@ a tenant scope.</p>
    the installed package's live <code>tools/list</code> schema.</li>
 <li>Confirm <code>MARKET_DATA_CMC_API_KEY</code> / <code>MARKET_DATA_FRED_API_KEY</code> are present
    without printing their values.</li>
-<li>Verify the complete TLS chain with certificate verification enabled.</li>
+<li>Check the complete TLS chain with certificate verification enabled.</li>
 <li>Exercise the <code>/health</code> endpoint (HTTP transports) and one keyless read
    (<code>fomc_calendar_list</code>) plus one keyed read per vendor.</li>
 <li>Record only sanitized pass/fail evidence and version identifiers.</li>
